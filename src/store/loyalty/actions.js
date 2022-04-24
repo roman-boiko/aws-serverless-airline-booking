@@ -2,8 +2,8 @@ import Loyalty from '../../shared/models/LoyaltyClass'
 // @ts-ignore
 import { Loading } from 'quasar'
 
-// import { API, graphqlOperation } from 'aws-amplify'
-// import { getLoyalty } from './graphql'
+import { API, graphqlOperation } from 'aws-amplify'
+import { getLoyalty } from './graphql'
 
 import axios from 'axios'
 
@@ -33,11 +33,11 @@ export async function fetchLoyalty({ commit }) {
   console.group('store/loyalty/actions/fetchLoyalty')
   try {
     console.log('Fetching loyalty data')
-    // const {
-    //   // @ts-ignore
-    //   data: { getLoyalty: loyaltyData }
-    // } = await API.graphql(graphqlOperation(getLoyalty))
-    const { data: loyaltyData } = await axios.get('/mocks/loyalty.json')
+    const {
+      // @ts-ignore
+      data: { getLoyalty: loyaltyData }
+    } = await API.graphql(graphqlOperation(getLoyalty))
+    //const { data: loyaltyData } = await axios.get('/mocks/loyalty.json')
     const loyalty = new Loyalty(loyaltyData)
 
     console.log(loyalty)

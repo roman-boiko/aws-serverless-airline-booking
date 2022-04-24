@@ -4,11 +4,11 @@ import Flight from '../../shared/models/FlightClass' // eslint-disable-line
 import { Loading } from 'quasar'
 import { processPayment } from './payment'
 
-// import { API, graphqlOperation } from 'aws-amplify'
-// import {
-//   processBooking as processBookingMutation,
-//   getBookingByStatus
-// } from './graphql'
+import { API, graphqlOperation } from 'aws-amplify'
+import {
+  processBooking as processBookingMutation,
+  getBookingByStatus
+} from './graphql'
 
 import axios from 'axios'
 
@@ -61,14 +61,14 @@ export async function fetchBooking(
 
     console.log('Fetching booking data')
     console.table(bookingFilter)
-    // const {
-    //   // @ts-ignore
-    //   data: {
-    //     getBookingByStatus: { items: bookingData, nextToken: paginationToken }
-    //   }
-    // } = await API.graphql(graphqlOperation(getBookingByStatus, bookingFilter))
+    const {
+      // @ts-ignore
+      data: {
+        getBookingByStatus: { items: bookingData, nextToken: paginationToken }
+      }
+    } = await API.graphql(graphqlOperation(getBookingByStatus, bookingFilter))
 
-    const { data: bookingData } = await axios.get('/mocks/bookings.json')
+    //   const { data: bookingData } = await axios.get('/mocks/bookings.json')
     let bookings = bookingData.map((booking) => new Booking(booking))
 
     console.table(bookings)
@@ -149,14 +149,14 @@ export async function createBooking(
       }
     }
 
-    // const {
-    //   // @ts-ignore
-    //   data: {
-    //     processBooking: { id: bookingProcessId }
-    //   }
-    // } = await API.graphql(
-    //   graphqlOperation(processBookingMutation, processBookingInput)
-    // )
+    const {
+      // @ts-ignore
+      data: {
+        processBooking: { id: bookingProcessId }
+      }
+    } = await API.graphql(
+      graphqlOperation(processBookingMutation, processBookingInput)
+    )
 
     // console.log(`Booking Id: ${bookingProcessId}`)
     console.groupEnd()

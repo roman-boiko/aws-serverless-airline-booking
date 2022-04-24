@@ -2,10 +2,12 @@ import Flight from '../../shared/models/FlightClass'
 import { SortPreference } from '../../shared/enums'
 // [Mock-Example]
 import axios from 'axios'
-// import { listFlightQuery, getFlightQuery } from './graphql.js'
+import { listFlightsQuery, getFlightQuery } from './graphql.js'
+import { API, graphqlOperation } from 'aws-amplify'
 
 const catalogEndpoint =
-  process.env.VUE_APP_CatalogEndpoint || 'no booking endpoint set'
+  'https://oievczyamzelrgibyuqpo2ofrm.appsync-api.eu-central-1.amazonaws.com/graphql'
+//process.env.VUE_APP_CatalogEndpoint || 'no booking endpoint set'
 
 /**
  *
@@ -41,44 +43,43 @@ export async function fetchFlights(
   try {
     // [GraphQL-Example]
     // listFlights query filter
-    // const flightFilter = {
-    //   filter: {
-    //     departureDate: {
-    //       beginsWith: date
-    //     },
-    //     departureAirportCode: {
-    //       eq: departure
-    //     },
-    //     arrivalAirportCode: {
-    //       eq: arrival
-    //     },
-    //     seatAllocation: {
-    //       gt: 0
-    //     }
-    //   }
-    // };
+    const flightFilter = {
+      filter: {
+        departureDate: {
+          beginsWith: date
+        },
+        departureAirportCode: {
+          eq: departure
+        },
+        arrivalAirportCode: {
+          eq: arrival
+        },
+        seatAllocation: {
+          gt: 0
+        }
+      }
+    }
 
-    // const result = await axios({
-    //   url: catalogEndpoint,
-    //   method: 'post',
-    //   data: {
-    //     query: listFlightsQuery,
-    //     variables: {
-    //       filter: flightFilter
-    //     }
-    //   },
-    //   headers: {
-    //     Authorization: credentials.accessToken,
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
+    const result = await axios({
+      url: catalogEndpoint,
+      method: 'post',
+      data: {
+        query: listFlightsQuery,
+        variables: {
+          filter: flightFilter
+        }
+      },
+      headers: {
+        'x-api-key': 'da2-da2-li6mfgc6yvhyxam5hzgusn225m'
+      }
+    })
 
     // Deconstructing JSON response: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring
-    // const {
-    //   data: {
-    //     data: { listFlights: flightData }
-    //   }
-    // } = result
+    const {
+      data: {
+        data: { listFlights: flightData }
+      }
+    } = result
 
     // [REST-Example]
     // const { data: flightData } = await axios.get(catalogEndpoint, {
@@ -93,7 +94,7 @@ export async function fetchFlights(
     // })
 
     // [Mock-Example]
-    const { data: flightData } = await axios.get('/mocks/flights.json')
+    //const { data: flightData } = await axios.get('/mocks/flights.json')
     const flights = flightData.map((flight) => new Flight(flight))
 
     console.info('Committing Flights to the store...')
@@ -138,27 +139,27 @@ export async function fetchByFlightId({ commit, rootGetters }, { flightId }) {
     commit('SET_LOADER', true)
 
     // [GraphQL-Example]
-    // const result = await axios({
-    //   url: catalogEndpoint,
-    //   method: 'post',
-    //   data: {
-    //     query: getFlightQuery,
-    //     variables: {
-    //       id: flightId
-    //     }
-    //   },
-    //   headers: {
-    //     Authorization: credentials.accessToken,
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
+    const result = await axios({
+      url: catalogEndpoint,
+      method: 'post',
+      data: {
+        query: getFlightQuery,
+        variables: {
+          id: flightId
+        }
+      },
+      headers: {
+        Authorization: credentials.accessToken,
+        'Content-Type': 'application/json'
+      }
+    })
 
     // Deconstructing JSON response: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring
-    // const {
-    //   data: {
-    //     data: { listFlights: flightData }
-    //   }
-    // } = result
+    const {
+      data: {
+        data: { listFlights: flightData }
+      }
+    } = result
 
     // [REST Example]
     // var { data: flightData } = await axios.get(catalogEndpoint, {
@@ -171,7 +172,7 @@ export async function fetchByFlightId({ commit, rootGetters }, { flightId }) {
     // })
 
     // [Mock-Example]
-    var { data: flightData } = await axios.get('/mocks/flights.json')
+    //var { data: flightData } = await axios.get('/mocks/flights.json')
 
     flightData = flightData.find((flight) => flight.id === flightId)
 

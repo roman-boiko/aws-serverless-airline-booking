@@ -22,5 +22,29 @@
         "awsserverlessairlineb7722ff6": {}
       }
     }
+  },
+  "hackathon": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-awsserverlessairline-hackathon-100136-authRole",
+      "UnauthRoleArn": "arn:aws:iam::803196568850:role/amplify-awsserverlessairline-hackathon-100136-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::803196568850:role/amplify-awsserverlessairline-hackathon-100136-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-awsserverlessairline-hackathon-100136-deployment",
+      "UnauthRoleName": "amplify-awsserverlessairline-hackathon-100136-unauthRole",
+      "StackName": "amplify-awsserverlessairline-hackathon-100136",
+      "StackId": "arn:aws:cloudformation:eu-central-1:803196568850:stack/amplify-awsserverlessairline-hackathon-100136/c7517f10-ba36-11ec-823b-06c78bad3de8",
+      "AmplifyAppId": "dtp9yycfe65h4"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dtp9yycfe65h4",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "awsserverlessairlineb7722ff6": {}
+      }
+    }
   }
 }
