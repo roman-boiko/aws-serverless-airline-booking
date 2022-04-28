@@ -131,6 +131,7 @@ export async function createBooking(
   { paymentToken, outboundFlight }
 ) {
   console.group('store/bookings/actions/createBooking')
+  console.log('Create booking')
   try {
     const customerEmail = rootState.profile.user.attributes.email
 

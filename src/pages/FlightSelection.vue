@@ -258,7 +258,7 @@ export default {
       let options = {
         name: this.form.name,
         address_zip: this.form.postcode,
-        address_country: this.form.country
+        address_country: this.form.country.value
       }
 
       try {
@@ -266,7 +266,7 @@ export default {
         this.token.details = token
         this.token.error = error
 
-        if (this.token.error) throw this.token.error
+        //if (this.token.error) throw this.token.error
 
         await this.$store.dispatch('bookings/createBooking', {
           paymentToken: this.token,
