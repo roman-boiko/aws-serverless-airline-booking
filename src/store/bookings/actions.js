@@ -68,7 +68,14 @@ export async function fetchBooking(
     //   }
     // } = await API.graphql(graphqlOperation(getBookingByStatus, bookingFilter))
 
-    const { data: bookingData } = await axios.get('/mocks/bookings.json')
+    const { data: bookingData } = await axios.get(
+      'https://h3jltcciz9.execute-api.eu-central-1.amazonaws.com/api/fetchBooking', 
+      {
+        headers:{
+          'CustomerId': customerId
+        }
+      }
+    )
     let bookings = bookingData.map((booking) => new Booking(booking))
 
     console.table(bookings)
