@@ -39,7 +39,7 @@ export async function fetchLoyalty({ commit, rootGetters }) {
     //   data: { getLoyalty: loyaltyData }
     // } = await API.graphql(graphqlOperation(getLoyalty))
     const { data: loyaltyData } = await axios.get(
-      'https://ufh2oqo7uk.execute-api.eu-central-1.amazonaws.com/Prod/' +
+      ' https://pkktzsjec3.execute-api.eu-central-1.amazonaws.com/Prod/' +
         customerId
     )
     const loyalty = new Loyalty(loyaltyData)
