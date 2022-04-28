@@ -150,10 +150,8 @@ export async function createBooking(
     Loading.show({ message: 'Creating a new booking...' })
 
     const processBookingInput = {
-      input: {
         paymentToken: chargeToken,
-        bookingOutboundFlightId: outboundFlight.id
-      }
+        outboundFlightId: outboundFlight.id
     }
 
     // const {
@@ -165,7 +163,12 @@ export async function createBooking(
     //   graphqlOperation(processBookingMutation, processBookingInput)
     // )
 
-    // console.log(`Booking Id: ${bookingProcessId}`)
+    const { data: bookingData } = await axios.post(
+      'https://h3jltcciz9.execute-api.eu-central-1.amazonaws.com/api/fetchBooking', 
+      processBookingInput
+    )
+    let bookingProcessId = bookingData.bookingId
+    console.log(`Booking Id: ${bookingProcessId}`)
     console.groupEnd()
     return true
     // return bookingProcessId
