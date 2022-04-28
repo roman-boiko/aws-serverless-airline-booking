@@ -5,7 +5,8 @@ import axios from 'axios'
 // import { listFlightQuery, getFlightQuery } from './graphql.js'
 
 const catalogEndpoint =
-  process.env.VUE_APP_CatalogEndpoint || 'no booking endpoint set'
+  process.env.VUE_APP_CatalogEndpoint ||
+  'https://569tm6zv01.execute-api.eu-central-1.amazonaws.com/prod/catalog_search'
 
 /**
  *
@@ -81,19 +82,19 @@ export async function fetchFlights(
     // } = result
 
     // [REST-Example]
-    // const { data: flightData } = await axios.get(catalogEndpoint, {
-    //   params: {
-    //     arrival: arrival,
-    //     departure: departure,
-    //     date: date
-    //   },
-    //  headers: {
-    //     Authorization: credentials.idToken // API Gateway only accepts ID Token
-    //   }
-    // })
+    const { data: flightData } = await axios.get(catalogEndpoint, {
+      params: {
+        arrival: arrival,
+        departure: departure,
+        date: date
+      }
+      //  headers: {
+      //     Authorization: credentials.idToken // API Gateway only accepts ID Token
+      //   }
+    })
 
     // [Mock-Example]
-    const { data: flightData } = await axios.get('mocks/flights.json')
+    //const { data: flightData } = await axios.get('mocks/flights.json')
     const flights = flightData.map((flight) => new Flight(flight))
 
     console.info('Committing Flights to the store...')
