@@ -224,7 +224,10 @@ export default {
         details: '',
         error: ''
       },
-      stripeKey: process.env.VUE_APP_StripePublicKey || 'no Stripe public key',
+      stripeKey:
+        process.env.VUE_APP_StripePublicKey ||
+        'pk_test_51KteWlHzsrsuEFASBUFHAwheOOwTUB2wBpwUIbPney7sFqhX5hTPWlViHOhWqUVEFbP6t6cVufgnOiIC6KrzIXEJ00jzBt107P' ||
+        'no Stripe public key',
       form: {
         name: '',
         country: '',
@@ -266,11 +269,30 @@ export default {
       }
 
       try {
-        const { token, error } = await stripe.createToken(card, options)
+        // Option 1: Stripe (requires STRIPE API KEY)
+        // console.log('Validating card data via Stripe API...')
+        // const { token, error } = await stripe.createToken(card, options)
+        // console.log('Done. See the token & error below...')
+        // --
+
+        // Option 2: Faking up stripe token for hackaton purpose.
+        console.log('Faking up stripe token for hackaton purpose...')
+        const [token, error] = [
+          {
+            id: 'SELF_MADE_CARD_TOKEN_' + new Date().getTime(),
+            client_ip: '1.1.1.1',
+            livemode: false
+          },
+          null
+        ]
+        // --
+
+        console.log(token, error)
+
         this.token.details = token
         this.token.error = error
 
-        //if (this.token.error) throw this.token.error
+        if (this.token.error) throw this.token.error
 
         await this.$store.dispatch('bookings/createBooking', {
           paymentToken: this.token,

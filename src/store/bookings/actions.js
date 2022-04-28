@@ -145,12 +145,17 @@ export async function createBooking(
     })
 
     console.info(
-      `Creating booking with token ${chargeToken} for flight ${outboundFlight}`
+      `Creating booking with token %s for flight %j`,
+      chargeToken,
+      outboundFlight
     )
 
-    Loading.show({ message: 'Creating a new booking...' })
+    // Commented by VV: Why this UI pat is even here!
+    //Loading.show({ message: 'Creating a new booking...' })
 
     const processBookingInput = {
+      // VV: should it the name be "chargeToken" (String)
+      // ... to avoid confustion with "paymentToken" (Object) - representing Stripe cardToken (aka encrypted card)
       paymentToken: chargeToken,
       outboundFlightId: outboundFlight.id
     }
@@ -165,7 +170,7 @@ export async function createBooking(
     // )
 
     const { data: bookingData } = await axios.post(
-      'https://f16j8ue4ja.execute-api.eu-central-1.amazonaws.com/api/fetchBooking',
+      'https://f16j8ue4ja.execute-api.eu-central-1.amazonaws.com/api/createBooking',
       processBookingInput
     )
     let bookingProcessId = bookingData.bookingId

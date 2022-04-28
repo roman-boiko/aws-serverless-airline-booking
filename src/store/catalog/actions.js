@@ -36,8 +36,7 @@ export async function fetchFlights(
   }
 
   console.group('store/booking/actions/fetchFlights')
-  console.log('Credentials retrieved')
-  console.log(credentials)
+  console.log('Profile credentials: %j', credentials)
 
   try {
     // [GraphQL-Example]
