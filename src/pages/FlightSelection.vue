@@ -235,6 +235,10 @@ export default {
             value: 'BR'
           },
           {
+            label: 'Germany',
+            value: 'DE'
+          },
+          {
             label: 'United Kingdom',
             value: 'UK'
           },
