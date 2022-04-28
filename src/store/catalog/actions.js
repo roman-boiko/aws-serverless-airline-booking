@@ -93,7 +93,7 @@ export async function fetchFlights(
     // })
 
     // [Mock-Example]
-    const { data: flightData } = await axios.get('/mocks/flights.json')
+    const { data: flightData } = await axios.get('mocks/flights.json')
     const flights = flightData.map((flight) => new Flight(flight))
 
     console.info('Committing Flights to the store...')
