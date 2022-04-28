@@ -69,10 +69,10 @@ export async function fetchBooking(
     // } = await API.graphql(graphqlOperation(getBookingByStatus, bookingFilter))
 
     const { data: bookingData } = await axios.get(
-      'https://h3jltcciz9.execute-api.eu-central-1.amazonaws.com/api/fetchBooking', 
+      'https://h3jltcciz9.execute-api.eu-central-1.amazonaws.com/api/fetchBooking',
       {
-        headers:{
-          'CustomerId': customerId
+        headers: {
+          CustomerId: customerId
         }
       }
     )
@@ -150,8 +150,8 @@ export async function createBooking(
     Loading.show({ message: 'Creating a new booking...' })
 
     const processBookingInput = {
-        paymentToken: chargeToken,
-        outboundFlightId: outboundFlight.id
+      paymentToken: chargeToken,
+      outboundFlightId: outboundFlight.id
     }
 
     // const {
@@ -164,7 +164,7 @@ export async function createBooking(
     // )
 
     const { data: bookingData } = await axios.post(
-      'https://h3jltcciz9.execute-api.eu-central-1.amazonaws.com/api/fetchBooking', 
+      'https://h3jltcciz9.execute-api.eu-central-1.amazonaws.com/api/fetchBooking',
       processBookingInput
     )
     let bookingProcessId = bookingData.bookingId
