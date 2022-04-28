@@ -145,9 +145,9 @@
     },
     {
         "city": "Berlin",
-        "code": "SXF",
+        "code": "BER",
         "country": "DE",
-        "name": "Berlin-Schönefeld Airport"
+        "name": "Berlin Brandenburg Airport"
     },
     {
         "city": "Dresden",
@@ -208,12 +208,6 @@
         "code": "STR",
         "country": "DE",
         "name": "Stuttgart Airport"
-    },
-    {
-        "city": "Berlin",
-        "code": "TXL",
-        "country": "DE",
-        "name": "Berlin-Tegel Airport"
     },
     {
         "city": "Hannover",
