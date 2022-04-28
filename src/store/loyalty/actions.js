@@ -25,20 +25,22 @@ import axios from 'axios'
  *    }
  * }
  */
-export async function fetchLoyalty({ commit }) {
+export async function fetchLoyalty({ commit, rootGetters }) {
   Loading.show({
     message: 'Loading profile...'
   })
 
   console.group('store/loyalty/actions/fetchLoyalty')
   try {
+    const customerId = rootGetters['profile/userAttributes'].sub
     console.log('Fetching loyalty data')
     // const {
     //   // @ts-ignore
     //   data: { getLoyalty: loyaltyData }
     // } = await API.graphql(graphqlOperation(getLoyalty))
     const { data: loyaltyData } = await axios.get(
-      'https://ufh2oqo7uk.execute-api.eu-central-1.amazonaws.com/Prod/any-user-id-here'
+      'https://ufh2oqo7uk.execute-api.eu-central-1.amazonaws.com/Prod/' +
+        customerId
     )
     const loyalty = new Loyalty(loyaltyData)
 
