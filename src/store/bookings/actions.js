@@ -170,12 +170,12 @@ export async function createBooking(
     // )
 
     // // Option 1 - create booking
-    // const { data: bookingData } = await axios.post(
-    //   'https://h3jltcciz9.execute-api.eu-central-1.amazonaws.com/api/createBooking',
-    //   processBookingInput
-    // )
+    const { data: bookingData } = await axios.post(
+      'https://h3jltcciz9.execute-api.eu-central-1.amazonaws.com/api/createBooking',
+      processBookingInput
+    )
 
-    const bookingData = { bookingId: 'bookid_' + new Date().getTime() }
+    //const bookingData = { bookingId: 'bookid_' + new Date().getTime() }
 
     // // Option 2 - fake booking
     let bookingProcessId = bookingData.bookingId
