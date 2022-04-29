@@ -6,8 +6,8 @@
   "author": "Amazon Web Services",
   "private": true,
   "scripts": {
-    "serve": "quasar dev",
-    "build": "quasar build",
+    "serve": "eslint --fix --ext .js,.vue ./ && quasar dev",
+    "build": "eslint --fix --ext .js,.vue ./ && quasar build",
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
