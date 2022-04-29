@@ -170,7 +170,7 @@ export async function createBooking(
     // )
 
     const { data: bookingData } = await axios.post(
-      'https://f16j8ue4ja.execute-api.eu-central-1.amazonaws.com/api/createBooking',
+      'https://h3jltcciz9.execute-api.eu-central-1.amazonaws.com/api/createBooking',
       processBookingInput
     )
     let bookingProcessId = bookingData.bookingId

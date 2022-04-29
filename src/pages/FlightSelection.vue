@@ -270,22 +270,22 @@ export default {
 
       try {
         // Option 1: Stripe (requires STRIPE API KEY)
-        // console.log('Validating card data via Stripe API...')
-        // const { token, error } = await stripe.createToken(card, options)
-        // console.log('Done. See the token & error below...')
+        console.log('Validating card data via Stripe API...')
+        const { token, error } = await stripe.createToken(card, options)
+        console.log('Done. See the token & error below...')
         // --
 
         // Option 2: Faking up stripe token for hackaton purpose.
-        console.log('Faking up stripe token for hackaton purpose...')
-        const [token, error] = [
-          {
-            id: 'SELF_MADE_CARD_TOKEN_' + new Date().getTime(),
-            client_ip: '1.1.1.1',
-            livemode: false
-          },
-          null
-        ]
-        // --
+        // console.log('Faking up stripe token for hackaton purpose...')
+        // const [token, error] = [
+        //   {
+        //     id: 'SELF_MADE_CARD_TOKEN_' + new Date().getTime(),
+        //     client_ip: '1.1.1.1',
+        //     livemode: false
+        //   },
+        //   null
+        // ]
+        // // --
 
         console.log(token, error)
 

@@ -61,12 +61,12 @@ export default class Flight {
     this.departureDate = new Date(departureDate)
     this.departureAirportCode = departureAirportCode
     this.departureAirportName = departureAirportName
-    this.departureLocale = departureLocale
+    this.departureLocale = 'en_GB'  // departureLocale
     this.arrivalCity = arrivalCity
     this.arrivalDate = new Date(arrivalDate)
     this.arrivalAirportCode = arrivalAirportCode
     this.arrivalAirportName = arrivalAirportName
-    this.arrivalLocale = arrivalLocale
+    this.arrivalLocale = 'en_GB' //arrivalLocale
     this.ticketPrice = ticketPrice
     this.ticketCurrency = ticketCurrency
     this.flightNumber = flightNumber
@@ -99,7 +99,7 @@ export default class Flight {
     var options = {
       hour: '2-digit',
       minute: '2-digit',
-      timeZone: this.departureLocale
+      // timeZone: this.departureLocale
     }
 
     let departureTime = this.departureDate.toLocaleString('en-GB', options)
@@ -117,7 +117,7 @@ export default class Flight {
     var options = {
       hour: '2-digit',
       minute: '2-digit',
-      timeZone: this.arrivalLocale
+      // timeZone: this.arrivalLocale
     }
 
     let arrivalTime = this.arrivalDate.toLocaleString('en-GB', options)
