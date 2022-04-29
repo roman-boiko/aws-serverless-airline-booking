@@ -42,7 +42,7 @@ module.exports = function (/* ctx */) {
         // TODO: Maybe pass some build time env variables here?
       },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
-      devtool: 'source-map'
+      devtool: 'source-map',
       // transpile: false,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)
@@ -52,7 +52,7 @@ module.exports = function (/* ctx */) {
 
       // rtl: false, // https://quasar.dev/options/rtl-support
       // preloadChunks: true,
-      // showProgress: false,
+      showProgress: true,
       // gzip: true,
       // analyze: true,
 
@@ -61,14 +61,14 @@ module.exports = function (/* ctx */) {
 
       // https://quasar.dev/quasar-cli/handling-webpack
       // Commended by VV
-      // extendWebpack(cfg) {
-      //   cfg.module.rules.push({
-      //     enforce: 'pre',
-      //     test: /\.(js|vue)$/,
-      //     loader: 'eslint-loader',
-      //     exclude: /node_modules/
-      //   })
-      // }
+      extendWebpack(cfg) {
+        cfg.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /node_modules/
+        })
+      }
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
