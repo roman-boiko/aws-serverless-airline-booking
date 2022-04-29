@@ -304,7 +304,7 @@ export default {
           message: `Your booking is ID is ${bookingId} - We'll soon contact you via ${this.customer.email}.`
         })
 
-        const that = this;
+        const that = this
         setTimeout(() => {
           Loading.hide()
           that.$router.push({ name: 'bookings' })
