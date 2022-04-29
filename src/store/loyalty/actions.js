@@ -6,6 +6,7 @@ import { Loading } from 'quasar'
 // import { getLoyalty } from './graphql'
 
 import axios from 'axios'
+import { Auth } from 'aws-amplify'
 
 /**
  * Loyalty [Vuex Module Action](https://vuex.vuejs.org/guide/actions.html) - fetchLoyalty retrieves current authenticated user loyalty info from Loyalty service.
@@ -32,6 +33,9 @@ export async function fetchLoyalty({ commit, rootGetters }) {
 
   console.group('store/loyalty/actions/fetchLoyalty')
   try {
+    const userCreds = await Auth.currentSession()
+    const token = await userCreds.getIdToken().getJwtToken()
+    console.log(`token ${token}`)
     const customerId = rootGetters['profile/userAttributes'].sub
     console.log('Fetching loyalty data')
     // const {
@@ -39,8 +43,13 @@ export async function fetchLoyalty({ commit, rootGetters }) {
     //   data: { getLoyalty: loyaltyData }
     // } = await API.graphql(graphqlOperation(getLoyalty))
     const { data: loyaltyData } = await axios.get(
-      ' https://pkktzsjec3.execute-api.eu-central-1.amazonaws.com/Prod/' +
-        customerId
+      ' https://21dg9ke4q3.execute-api.eu-central-1.amazonaws.com/Prod/' +
+        customerId,
+      {
+        headers: {
+          Authorization: token
+        }
+      }
     )
     const loyalty = new Loyalty(loyaltyData)
 
