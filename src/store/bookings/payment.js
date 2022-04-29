@@ -63,8 +63,9 @@ export async function processPayment({
     } = data
 
     Loading.show({
-      message: `Payment authorized successfully id:${chargeId}...`
+      message: `Payment successfull id: ${chargeId}`
     })
+    console.info(`Payment successfull id: ${chargeId}`)
 
     console.groupEnd()
     return chargeId

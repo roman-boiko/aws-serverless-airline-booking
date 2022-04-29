@@ -128,6 +128,7 @@ import { validationMixin } from 'vuelidate'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { mapState, mapGetters } from 'vuex'
 import { Logger } from 'aws-amplify'
+import { Loading } from 'quasar'
 
 const logger = new Logger('FlightSelection')
 
@@ -294,22 +295,23 @@ export default {
 
         if (this.token.error) throw this.token.error
 
-        await this.$store.dispatch('bookings/createBooking', {
+        const bookingId = await this.$store.dispatch('bookings/createBooking', {
           paymentToken: this.token,
           outboundFlight: this.selectedFlight
         })
 
-        // eslint-disable-next-line
-        this.$q.loading.show({
-          message: `Your booking is being processed - We'll soon contact you via ${this.customer.email}.`
+        Loading.show({
+          message: `Your booking is ID is ${bookingId} - We'll soon contact you via ${this.customer.email}.`
         })
+
+        const that = this;
         setTimeout(() => {
-          this.$q.loading.hide()
-          this.$router.push({ name: 'bookings' })
-        }, 3000)
+          Loading.hide()
+          that.$router.push({ name: 'bookings' })
+        }, 4000)
       } catch (err) {
         logger.error('Error while creating a new booking: ', err)
-        this.$q.loading.hide()
+        Loading.hide()
         this.$q.notify(
           `Error while creating your Booking - Check browser console messages`
         )

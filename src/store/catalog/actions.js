@@ -4,9 +4,8 @@ import { SortPreference } from '../../shared/enums'
 import axios from 'axios'
 // import { listFlightQuery, getFlightQuery } from './graphql.js'
 
-const catalogEndpoint =
-  process.env.VUE_APP_CatalogEndpoint ||
-  'https://569tm6zv01.execute-api.eu-central-1.amazonaws.com/prod/catalog_search'
+const CATALOG_ENDPOINT_BASE =
+  'https://9psvopd8q1.execute-api.eu-central-1.amazonaws.com/prod'
 
 /**
  *
@@ -36,7 +35,8 @@ export async function fetchFlights(
   }
 
   console.group('store/booking/actions/fetchFlights')
-  console.log('Profile credentials: %j', credentials)
+  console.log('Credentials retrieved')
+  console.log(credentials)
 
   try {
     // [GraphQL-Example]
@@ -81,16 +81,19 @@ export async function fetchFlights(
     // } = result
 
     // [REST-Example]
-    const { data: flightData } = await axios.get(catalogEndpoint, {
-      params: {
-        arrival: arrival,
-        departure: departure,
-        date: date
+    const { data: flightData } = await axios.get(
+      CATALOG_ENDPOINT_BASE + '/catalog_search',
+      {
+        params: {
+          arrival: arrival,
+          departure: departure,
+          date: date
+        }
+        //  headers: {
+        //     Authorization: credentials.idToken // API Gateway only accepts ID Token
+        //   }
       }
-      //  headers: {
-      //     Authorization: credentials.idToken // API Gateway only accepts ID Token
-      //   }
-    })
+    )
 
     // [Mock-Example]
     //const { data: flightData } = await axios.get('mocks/flights.json')
@@ -125,6 +128,8 @@ export async function fetchFlights(
  * @see {@link SET_LOADER} for more info on mutation
  */
 export async function fetchByFlightId({ commit, rootGetters }, { flightId }) {
+  /* // for some reason there is no idToken & accessTonken in rootGetters
+  console.log(rootGetters)
   const credentials = {
     idToken: rootGetters['profile/idToken'],
     accessToken: rootGetters['profile/accessToken']
@@ -133,6 +138,7 @@ export async function fetchByFlightId({ commit, rootGetters }, { flightId }) {
   console.group('store/booking/actions/fetchByFlightId')
   console.log('Credentials retrieved')
   console.log(credentials)
+  */
 
   try {
     commit('SET_LOADER', true)
@@ -170,12 +176,16 @@ export async function fetchByFlightId({ commit, rootGetters }, { flightId }) {
     //   }
     // })
 
-    // [Mock-Example]
-    var { data: flightData } = await axios.get('/mocks/flights.json')
-
-    flightData = flightData.find((flight) => flight.id === flightId)
-
     console.info('Flight received from Catalog...')
+    var { data: flightData } = await axios.get(
+      CATALOG_ENDPOINT_BASE + '/catalog',
+      {
+        params: {
+          id: flightId
+        }
+      }
+    )
+
     console.log(flightData)
 
     const flight = new Flight(flightData)
